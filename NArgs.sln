@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NArgs", "src\NArgs\NArgs.csproj", "{FFE58E84-2394-4C8F-8CCB-160D8BEA8259}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NArgs.Tests", "tests\NArgs.Tests\NArgs.Tests.csproj", "{C0020927-C1D1-4DF0-B255-E7FFE3D3CB81}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{73341CE6-B362-4900-9965-D621335111C8}"
+	ProjectSection(SolutionItems) = preProject
+		tools\nunit.framework.dll = tools\nunit.framework.dll
+		tools\Rhino.Mocks.dll = tools\Rhino.Mocks.dll
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FFE58E84-2394-4C8F-8CCB-160D8BEA8259}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFE58E84-2394-4C8F-8CCB-160D8BEA8259}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFE58E84-2394-4C8F-8CCB-160D8BEA8259}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFE58E84-2394-4C8F-8CCB-160D8BEA8259}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0020927-C1D1-4DF0-B255-E7FFE3D3CB81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0020927-C1D1-4DF0-B255-E7FFE3D3CB81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0020927-C1D1-4DF0-B255-E7FFE3D3CB81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0020927-C1D1-4DF0-B255-E7FFE3D3CB81}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
