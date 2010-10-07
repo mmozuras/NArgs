@@ -4,15 +4,7 @@ namespace NArgs
 {
     public class ArgsException : Exception
     {
-        public ArgsException(ErrorCode errorCode) : this(errorCode, null, '\0')
-        {
-        }
-
-        public ArgsException(ErrorCode errorCode, string errorParameter) : this(errorCode, errorParameter, '\0')
-        {
-        }
-
-        public ArgsException(ErrorCode errorCode, string errorParameter, char errorArgumentId)
+        public ArgsException(ErrorCode errorCode, string errorParameter = null, char errorArgumentId = '\0')
         {
             ErrorCode = errorCode;
             ErrorParameter = errorParameter;

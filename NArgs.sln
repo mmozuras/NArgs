@@ -3,8 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{73341CE6-B362-4900-9965-D621335111C8}"
 	ProjectSection(SolutionItems) = preProject
+		tools\Moq.dll = tools\Moq.dll
 		tools\nunit.framework.dll = tools\nunit.framework.dll
-		tools\Rhino.Mocks.dll = tools\Rhino.Mocks.dll
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NArgs", "src\NArgs\NArgs.csproj", "{FFE58E84-2394-4C8F-8CCB-160D8BEA8259}"
