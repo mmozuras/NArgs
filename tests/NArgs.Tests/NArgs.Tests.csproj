@@ -78,6 +78,7 @@
     <Compile Include="ArgsSchemaTests.cs" />
     <Compile Include="ArgsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShouldExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\NArgs\NArgs.csproj">

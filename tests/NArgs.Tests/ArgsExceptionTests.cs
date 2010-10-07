@@ -15,8 +15,8 @@ namespace NArgs.Tests
         [TestCase(ErrorCode.UnexpectedArgument, null, 'x', "Argument -x unexpected.")]
         public void Messages(ErrorCode errorCode, string errorParameter, char argumentId, string expectedMessage)
         {
-            var e = new ArgsException(errorCode, errorParameter, argumentId);
-            Assert.AreEqual(expectedMessage, e.ErrorMessage());
+            var exception = new ArgsException(errorCode, errorParameter, argumentId);
+            exception.ErrorMessage().ShouldBe(expectedMessage);
         }
     }
 }
