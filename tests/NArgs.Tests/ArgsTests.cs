@@ -6,6 +6,27 @@ namespace NArgs.Tests
     [TestFixture]
     public class ArgsTest
     {
+        [TestCase("x##", ErrorCode.InvalidDouble)]
+        [TestCase("x#", ErrorCode.InvalidInteger)]
+        public void Invalid(string schema, ErrorCode errorCode)
+        {
+            var exception = Assert.Catch<ArgsException>(() => new Args(schema, new[] {"-x", "Forty two"}));
+            exception.ErrorCode.ShouldBe(errorCode);
+            exception.ErrorArgumentId.ShouldBe('x');
+            exception.ErrorParameter.ShouldBe("Forty two");
+        }
+
+        [TestCase("x##", ErrorCode.MissingDouble)]
+        [TestCase("x#", ErrorCode.MissingInteger)]
+        [TestCase("x*", ErrorCode.MissingString)]
+        [TestCase("x[*]", ErrorCode.MissingString)]
+        public void Missing(string schema, ErrorCode errorCode)
+        {
+            var exception = Assert.Catch<ArgsException>(() => new Args(schema, new[] {"-x"}));
+            exception.ErrorCode.ShouldBe(errorCode);
+            exception.ErrorArgumentId.ShouldBe('x');
+        }
+
         [Test]
         public void CreateWithNoSchemaOrArguments()
         {
@@ -31,56 +52,6 @@ namespace NArgs.Tests
             args.Get<bool>('x').ShouldBeTrue();
             args.Get<bool>('y').ShouldBeFalse();
             args.NextArgument().ShouldBe(1);
-        }
-
-        [Test]
-        public void InvalidDouble()
-        {
-            var exception = Assert.Catch<ArgsException>(() => new Args("x##", new[] {"-x", "Forty two"}));
-            exception.ErrorCode.ShouldBe(ErrorCode.InvalidDouble);
-            exception.ErrorArgumentId.ShouldBe('x');
-            exception.ErrorParameter.ShouldBe("Forty two");
-        }
-
-        [Test]
-        public void InvalidInteger()
-        {
-            var exception = Assert.Catch<ArgsException>(() => new Args("x#", new[] {"-x", "Forty two"}));
-            exception.ErrorCode.ShouldBe(ErrorCode.InvalidInteger);
-            exception.ErrorArgumentId.ShouldBe('x');
-            exception.ErrorParameter.ShouldBe("Forty two");
-        }
-
-        [Test]
-        public void MissingDouble()
-        {
-            var exception = Assert.Catch<ArgsException>(() => new Args("x##", new[] {"-x"}));
-            exception.ErrorCode.ShouldBe(ErrorCode.MissingDouble);
-            exception.ErrorArgumentId.ShouldBe('x');
-        }
-
-        [Test]
-        public void MissingInteger()
-        {
-            var exception = Assert.Catch<ArgsException>(() => new Args("x#", new[] {"-x"}));
-            exception.ErrorCode.ShouldBe(ErrorCode.MissingInteger);
-            exception.ErrorArgumentId.ShouldBe('x');
-        }
-
-        [Test]
-        public void MissingStringArgument()
-        {
-            var exception = Assert.Catch<ArgsException>(() => new Args("x*", new[] {"-x"}));
-            exception.ErrorCode.ShouldBe(ErrorCode.MissingString);
-            exception.ErrorArgumentId.ShouldBe('x');
-        }
-
-        [Test]
-        public void MissingStringArrayElement()
-        {
-            var exception = Assert.Catch<ArgsException>(() => new Args("x[*]", new[] {"-x"}));
-            exception.ErrorCode.ShouldBe(ErrorCode.MissingString);
-            exception.ErrorArgumentId.ShouldBe('x');
         }
 
         [Test]

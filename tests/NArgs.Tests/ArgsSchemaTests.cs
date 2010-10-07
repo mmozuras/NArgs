@@ -13,7 +13,6 @@ namespace NArgs.Tests
             exception.ErrorArgumentId.ShouldBe('*');
         }
 
-
         [Test]
         public void InvalidArgumentFormat()
         {

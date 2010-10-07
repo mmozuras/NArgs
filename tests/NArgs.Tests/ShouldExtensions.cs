@@ -13,7 +13,7 @@ namespace NArgs.Tests
         {
             Assert.IsFalse(expected);
         }
-        
+
         public static void ShouldBe<T>(this T expected, T actual)
         {
             Assert.AreEqual(expected, actual);
