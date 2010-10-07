@@ -5,20 +5,13 @@ namespace NArgs.Tests
     [TestFixture]
     public class ArgsSchemaTests
     {
-        [Test]
-        public void NonLetterSchema()
+        [TestCase("*", ErrorCode.InvalidArgumentName, '*', Description = "Non letter schema")]
+        [TestCase("f~", ErrorCode.InvalidArgumentFormat, 'f', Description = "Invalid argument format")]
+        public void Schema(string schema, ErrorCode errorCode, char argumentId)
         {
-            var exception = Assert.Catch<ArgsException>(() => new ArgsSchema("*"));
-            exception.ErrorCode.ShouldBe(ErrorCode.InvalidArgumentName);
-            exception.ErrorArgumentId.ShouldBe('*');
-        }
-
-        [Test]
-        public void InvalidArgumentFormat()
-        {
-            var exception = Assert.Catch<ArgsException>(() => new ArgsSchema("f~"));
-            exception.ErrorCode.ShouldBe(ErrorCode.InvalidArgumentFormat);
-            exception.ErrorArgumentId.ShouldBe('f');
+            var exception = Assert.Catch<ArgsException>(() => new ArgsSchema(schema));
+            exception.ErrorCode.ShouldBe(errorCode);
+            exception.ErrorArgumentId.ShouldBe(argumentId);
         }
     }
 }

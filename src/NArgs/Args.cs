@@ -39,28 +39,23 @@ namespace NArgs
 
         private void ParseArgumentCharacters(IEnumerable<char> argChars)
         {
-            foreach (var argChar in argChars)
-            {
-                ParseArgumentCharacter(argChar);
-            }
+            argChars.Select(ParseArgumentCharacter)
+                .ToList()
+                .ForEach(argsFound.Add);
         }
 
-        private void ParseArgumentCharacter(char argChar)
+        private char ParseArgumentCharacter(char argChar)
         {
-            IArgumentMarshaler marshaler;
-            if (schema.ContainsMarshalerFor(argChar))
-            {
-                marshaler = schema.GetMarshalerFor(argChar);
-                argsFound.Add(argChar);
-            }
-            else
+            if (!schema.ContainsMarshalerFor(argChar))
             {
                 throw new ArgsException(ErrorCode.UnexpectedArgument, null, argChar);
             }
 
             try
             {
+                var marshaler = schema.GetMarshalerFor(argChar);
                 marshaler.Set(currentArgument);
+                return argChar;
             }
             catch (ArgsException e)
             {

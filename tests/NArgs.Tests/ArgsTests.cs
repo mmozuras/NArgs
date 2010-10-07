@@ -38,6 +38,8 @@ namespace NArgs.Tests
         public void ExtraArguments()
         {
             var args = new Args("x,y*", new[] {"-x", "-y", "alpha", "beta"});
+            args.Has('x').ShouldBeTrue();
+            args.Has('y').ShouldBeTrue();
             args.Get<bool>('x').ShouldBeTrue();
             args.Get<string>('y').ShouldBe("alpha");
             args.NextArgument().ShouldBe(3);
