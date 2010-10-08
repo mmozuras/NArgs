@@ -3,7 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{73341CE6-B362-4900-9965-D621335111C8}"
 	ProjectSection(SolutionItems) = preProject
-		tools\Moq.dll = tools\Moq.dll
 		tools\nunit.framework.dll = tools\nunit.framework.dll
 	EndProjectSection
 EndProject

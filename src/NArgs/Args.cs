@@ -12,7 +12,7 @@ namespace NArgs
         
         private IEnumerator<string> currentArgument;
 
-        public Args(string schema, IEnumerable<string> args)
+        public Args(string schema, params string[] args)
         {
             this.args = new List<string>(args);
             argsFound = new List<char>();

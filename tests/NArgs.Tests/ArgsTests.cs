@@ -10,19 +10,19 @@ namespace NArgs.Tests
         [TestCase("x#", ErrorCode.InvalidInteger)]
         public void Invalid(string schema, ErrorCode errorCode)
         {
-            var exception = Assert.Catch<ArgsException>(() => new Args(schema, new[] {"-x", "Forty two"}));
+            var exception = Assert.Catch<ArgsException>(() => new Args(schema, "-x", "Forty two"));
             exception.ErrorCode.ShouldBe(errorCode);
             exception.ErrorArgumentId.ShouldBe('x');
             exception.ErrorParameter.ShouldBe("Forty two");
         }
-
+        
         [TestCase("x##", ErrorCode.MissingDouble)]
         [TestCase("x#", ErrorCode.MissingInteger)]
         [TestCase("x*", ErrorCode.MissingString)]
         [TestCase("x[*]", ErrorCode.MissingString)]
         public void Missing(string schema, ErrorCode errorCode)
         {
-            var exception = Assert.Catch<ArgsException>(() => new Args(schema, new[] {"-x"}));
+            var exception = Assert.Catch<ArgsException>(() => new Args(schema, "-x"));
             exception.ErrorCode.ShouldBe(errorCode);
             exception.ErrorArgumentId.ShouldBe('x');
         }
@@ -30,14 +30,14 @@ namespace NArgs.Tests
         [Test]
         public void CreateWithNoSchemaOrArguments()
         {
-            var args = new Args(string.Empty, new string[0]);
+            var args = new Args(string.Empty);
             args.NextArgument().ShouldBe(0);
         }
-
+        
         [Test]
         public void ExtraArguments()
         {
-            var args = new Args("x,y*", new[] {"-x", "-y", "alpha", "beta"});
+            var args = new Args("x,y*", "-x", "-y", "alpha", "beta");
             args.Has('x').ShouldBeTrue();
             args.Has('y').ShouldBeTrue();
             args.Get<bool>('x').ShouldBeTrue();
@@ -48,7 +48,7 @@ namespace NArgs.Tests
         [Test]
         public void ExtraArgumentsThatLookLikeFlags()
         {
-            var args = new Args("x,y", new[] {"-x", "alpha", "-y", "beta"});
+            var args = new Args("x,y", "-x", "alpha", "-y", "beta");
             args.Has('x').ShouldBeTrue();
             args.Has('y').ShouldBeFalse();
             args.Get<bool>('x').ShouldBeTrue();
@@ -59,7 +59,7 @@ namespace NArgs.Tests
         [Test]
         public void SimpleBooleanPresent()
         {
-            var args = new Args("x", new[] {"-x"});
+            var args = new Args("x", "-x");
             args.Get<bool>('x').ShouldBeTrue();
             args.NextArgument().ShouldBe(1);
         }
@@ -67,7 +67,7 @@ namespace NArgs.Tests
         [Test]
         public void SimpleDoublePresent()
         {
-            var args = new Args("x##", new[] {"-x", "42.3"});
+            var args = new Args("x##", "-x", "42.3");
             args.Has('x').ShouldBeTrue();
             args.Get<double>('x').ShouldBe(42.3);
         }
@@ -75,7 +75,7 @@ namespace NArgs.Tests
         [Test]
         public void SimpleIntPresent()
         {
-            var args = new Args("x#", new[] {"-x", "42"});
+            var args = new Args("x#", "-x", "42");
             args.Has('x').ShouldBeTrue();
             args.Get<int>('x').ShouldBe(42);
             args.NextArgument().ShouldBe(2);
@@ -84,7 +84,7 @@ namespace NArgs.Tests
         [Test]
         public void SimpleStringPresent()
         {
-            var args = new Args("x*", new[] {"-x", "param"});
+            var args = new Args("x*", "-x", "param");
             args.Has('x').ShouldBeTrue();
             args.Get<string>('x').ShouldBe("param");
             args.NextArgument().ShouldBe(2);
@@ -93,7 +93,7 @@ namespace NArgs.Tests
         [Test]
         public void SpacesInFormat()
         {
-            var args = new Args("x, y", new[] {"-xy"});
+            var args = new Args("x, y", "-xy");
             args.Has('x').ShouldBeTrue();
             args.Has('y').ShouldBeTrue();
             args.NextArgument().ShouldBe(1);
@@ -102,7 +102,7 @@ namespace NArgs.Tests
         [Test]
         public void StringArray()
         {
-            var args = new Args("x[*]", new[] {"-x", "alpha"});
+            var args = new Args("x[*]", "-x", "alpha");
             args.Has('x').ShouldBeTrue();
             var result = args.Get<List<string>>('x');
             result.Count.ShouldBe(1);
@@ -112,7 +112,7 @@ namespace NArgs.Tests
         [Test]
         public void WithNoSchemaButWithMultipleArguments()
         {
-            var exception = Assert.Catch<ArgsException>(() => new Args(string.Empty, new[] {"-x", "-y"}));
+            var exception = Assert.Catch<ArgsException>(() => new Args(string.Empty, "-x", "-y"));
             exception.ErrorCode.ShouldBe(ErrorCode.UnexpectedArgument);
             exception.ErrorArgumentId.ShouldBe('x');
         }
@@ -120,7 +120,7 @@ namespace NArgs.Tests
         [Test]
         public void WithNoSchemaButWithOneArgument()
         {
-            var exception = Assert.Catch<ArgsException>(() => new Args(string.Empty, new[] {"-x"}));
+            var exception = Assert.Catch<ArgsException>(() => new Args(string.Empty, "-x"));
             exception.ErrorCode.ShouldBe(ErrorCode.UnexpectedArgument);
             exception.ErrorArgumentId.ShouldBe('x');
         }

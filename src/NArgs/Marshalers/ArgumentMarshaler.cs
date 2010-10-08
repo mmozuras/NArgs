@@ -6,8 +6,8 @@ namespace NArgs.Marshalers
     {
         public static T GetValue(IArgumentMarshaler argumentMarshaler)
         {
-            var integerArgumentMarshaler = argumentMarshaler as ArgumentMarshaler<T>;
-            return integerArgumentMarshaler != null ? integerArgumentMarshaler.Value : default(T);
+            var marshaler = argumentMarshaler as ArgumentMarshaler<T>;
+            return marshaler != null ? marshaler.Value : default(T);
         }
 
         protected abstract T Value { get; set; }
